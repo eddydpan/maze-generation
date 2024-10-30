@@ -1,6 +1,7 @@
 from maze import *
 import pygame
 import dfs
+import bfs
 import time
 
 # Start PyGame
@@ -16,8 +17,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 maze_width = 20
 maze_height = 20
 maze = Maze(maze_width, maze_height)
-search = dfs.DFS(maze.adjacency_matrix())
-solution = search.solve()
+search = bfs.BFS(maze.adjacency_matrix())
+solution = search.generate_spanning_tree()
 
 # create rect representation of maze object
 maze_rect = []

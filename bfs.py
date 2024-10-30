@@ -19,7 +19,7 @@ class BFS(Search):
         self.graph = graph
         self.start = start_node
         
-    def generate_spanning_tree(self, dim):
+    def generate_spanning_tree(self):
         """
         Generates a spanning tree using BFS starting at the top left corner and
         ending at the bottom right corner.
@@ -29,15 +29,14 @@ class BFS(Search):
                 graph, and h is the height.
         """
         # Retrieve the adjacency matrix from the Maze class
-        adj_matrix = Maze(dim[0], dim[1]).adjacency_matrix()
-        print(adj_matrix)
+        adj_matrix = self.graph
         
         # Initialize graph with all vertices but no edges
-        self.graph = {node: [] for node in adj_matrix}
+        adj_graph = {node: [] for node in adj_matrix}
+        solution = {}
         
         visited = set() # Dictionary to keep track of the parent to each visited node
         # visited[self.start] = None # The source does not have a parent
-        print(f"starting node: {self.start}")
         queue = deque([(self.start, None)])
         # next_node = None
 
@@ -45,13 +44,13 @@ class BFS(Search):
             print(f"Queue: {queue}")
             node, parent = queue.popleft()  # Visit a node
             if node not in visited and parent is not None:
-                self.graph[parent].append(node)
-                self.graph[node].append(parent)
+                solution[str(node)] = int(parent)
+                adj_graph[parent].append(node)
+                adj_graph[node].append(parent)
             visited.add(node)
             
             
             # breakpoint()
-            print(f"Visiting: {node}")
 
             neighbor_list = adj_matrix[node]
             random.shuffle(neighbor_list)
@@ -59,15 +58,16 @@ class BFS(Search):
             # Iterate over shuffled neighbors
             for neighbor in neighbor_list:
                 neighbor = str(neighbor)
-                print(f"Neighbor: {neighbor}")
                 if neighbor not in visited:
                     # Add edge to the spanning tree
-                    # self.graph[node].append(neighbor)
-                    # self.graph[neighbor].append(node)  # Undirected edge
+                    # adj_graph[node].append(neighbor)
+                    # adj_graph[neighbor].append(node)  # Undirected edge
                     queue.append((neighbor, node))  # Add unvisited neighbor to queue with node as its parent
                     # visited.add(neighbor)
                     # next_node = neighbor
                     # visited[neighbor] = node
+
+        return solution
             
 
 
@@ -85,16 +85,16 @@ class BFS(Search):
         
     #     neighbors = Maze(dim[0], dim[1]).adjacency_matrix()
     #     # Initialize graph with all vertices but no edges
-    #     self.graph = {}
+    #     adj_graph = {}
     #     for node in neighbors.keys():
-    #         self.graph[node] = []
+    #         adj_graph[node] = []
 
     #     # node_idx = 1
     #     # # Initialize graph matrix.
     #     # for w in range(dim[0]):
     #     #     for h in range(dim[1]):
     #     #         # Set each node to be a key with an empty list as its value
-    #     #         self.graph['{node_idx}'] = [] 
+    #     #         adj_graph['{node_idx}'] = [] 
     #     #         node_idx += 1
 
 
@@ -105,7 +105,7 @@ class BFS(Search):
     #     # If there are elements in the queue...
     #     while queue:
     #         if last_node is not None:
-    #             self.graph[node].append(last_node)
+    #             adj_graph[node].append(last_node)
     #         node = queue.popleft() # visit a node, therefore pop it out            
     #         visited.add(node)
     #         # Find neighbors and add to queue.
