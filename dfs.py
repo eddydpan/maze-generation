@@ -16,23 +16,13 @@ class DFS(Search):
         self.start = start_node
         
 
-    def generate_spanning_tree(self, dim):
+    def generate_spanning_tree(self):
         """
         Generates a spanning tree using BFS.
 
         Args:
             dim: a tuple of integers (n,h) where n is the max number of
                  children a vertex can have, and h is the height of the tree.
-        """
-        pass
-
-    def solve(self):
-        """
-        Finds the shortest path of the tree that represents the maze using BFS.
-        
-        Args:
-            target: A Node representing the target for the BFS search and
-                shortest path.
         """
         visited = {}
         
@@ -46,3 +36,12 @@ class DFS(Search):
         dfs(visited, self.graph, self.start, 0)
 
         return visited
+
+    def solve(self):
+        """
+        Finds the shortest path of the tree that represents the maze using BFS.
+        
+        Args:
+            target: A Node representing the target for the BFS search and
+                shortest path.
+        """

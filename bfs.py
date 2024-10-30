@@ -41,7 +41,7 @@ class BFS(Search):
         # next_node = None
 
         while queue:
-            print(f"Queue: {queue}")
+            queue_nodes = []
             node, parent = queue.popleft()  # Visit a node
             if node not in visited and parent is not None:
                 solution[str(node)] = int(parent)
@@ -55,10 +55,12 @@ class BFS(Search):
             neighbor_list = adj_matrix[node]
             random.shuffle(neighbor_list)
             
+            for i in range(len(queue)):
+                queue_nodes.append(queue[i][0])
             # Iterate over shuffled neighbors
             for neighbor in neighbor_list:
                 neighbor = str(neighbor)
-                if neighbor not in visited:
+                if neighbor not in visited and neighbor not in queue_nodes:
                     # Add edge to the spanning tree
                     # adj_graph[node].append(neighbor)
                     # adj_graph[neighbor].append(node)  # Undirected edge
@@ -66,7 +68,7 @@ class BFS(Search):
                     # visited.add(neighbor)
                     # next_node = neighbor
                     # visited[neighbor] = node
-
+        print(solution)
         return solution
             
 
