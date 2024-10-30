@@ -68,7 +68,7 @@ class BFS(Search):
                     # visited.add(neighbor)
                     # next_node = neighbor
                     # visited[neighbor] = node
-        print(solution)
+        print(adj_graph)
         return solution
             
 

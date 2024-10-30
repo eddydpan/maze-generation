@@ -17,7 +17,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 maze_width = 10
 maze_height = 10
 maze = Maze(maze_width, maze_height)
-search = dfs.DFS(maze.adjacency_matrix())
+search = bfs.BFS(maze.adjacency_matrix())
 solution = search.generate_spanning_tree()
 
 # create rect representation of maze object
